@@ -12,19 +12,18 @@
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<?php include_once('config.php'); ?>
-	<?php include_once('process.php'); ?>
+	
+	<?php include('process.php'); ?>
 
 	<?php 
 	if(isset($_SESSION['message'])): ?>
-	<div class="alert alert-<?=$_SESSION['msg_type'] ?>">
+	<div class="alert alert-<?=$_SESSION['msg_type'] ?>" id="goHide">
 	<?php 
 	echo $_SESSION['message']; 
 	unset($_SESSION['message']);
 	?>
 	</div>
 	<?php endif ?>
-
 
 	<div class="container">
 	<form action="process.php" method="post">
@@ -65,6 +64,25 @@
 	</div>
 
 	<div class="container">
+		<form action="index.php" method="post">
+		<div class="d-flex justify-content-end">
+			<div class="p-2">
+				<select name="attributes" class="browser-default custom-select">
+					<option value="" disabled selected="">Option</option>
+					<option value="pupil_id">Id</option>
+					<option value="pupil_firstName">First name</option>
+					<option value="pupil_lastName">Last name</option>
+					<option value="pupil_age">Age</option>
+					<option value="pupil_contact">Contact</option>
+				</select>
+			</div>
+			<div class="p-2" style="width: 80%;"><input class="form-control" type="text" name="txtSearch" placeholder="Search" autocomplete="off"></div>
+			<div class="p-2"><input class="btn btn-light" type="submit" name="btnSearch" value="Search"></div>
+		</div>
+	
+		</form>
+	</div>
+	<div class="container">
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -77,7 +95,16 @@
 				</tr>
 			</thead>
 			<?php 
-			$retrieveQuery = "SELECT * FROM pupils" or die($conn->error);
+			if(isset($_POST['btnSearch'])){
+				$btnSearchClicked = true;		
+				$selectedAtt = $_POST['attributes'];
+				$searchInput = $_POST['txtSearch'];
+				
+				$retrieveQuery = "SELECT * FROM pupils WHERE $selectedAtt LIKE '%$txtSearch%'" or die($conn->error);
+			}else{
+				$retrieveQuery = "SELECT * FROM pupils" or die($conn->error);
+			}
+			
 			$result = $conn->query($retrieveQuery);
 			while($row = $result->fetch_assoc()): ?>
 			<tr>

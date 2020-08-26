@@ -4,6 +4,9 @@
 
 	$id = 0;
 	$update = false;
+	$btnSearchClicked = false;
+	$selectedAtt = "";
+	$txtSearch = "";
 	$pupil_firstName = "";
 	$pupil_lastName = "";
 	$pupil_age = "";
@@ -58,11 +61,22 @@
 		$pupil_contact = $_POST['pupil_contact'];
 
 		$conn->query("UPDATE pupils SET pupil_firstName = '$pupil_firstName', pupil_lastName='$pupil_lastName', 
-					pupil_age = '$pupil_age', pupil_contact = 'pupil_contact';") or die($conn->error());
+					pupil_age = '$pupil_age', pupil_contact = '$pupil_contact' WHERE pupil_id='$id';") 
+					or die($conn->error());
 
 		$_SESSION['message'] = "Record update successful.";
 		$_SESSION['msg_type'] = "warning";
 
 		header('location:index.php');
+	}
+
+	if(isset($_POST['btnSearch'])){
+		$btnSearchClicked = true;
+		$selectedAtt = $_POST['attributes'];
+		$searchInput = $_POST['txtSearch'];
+		//echo $btnSearchClicked;
+		//echo $selectedAtt;
+		//echo $searchInput;
+		//header('location:index.php');
 	}
 ?>
