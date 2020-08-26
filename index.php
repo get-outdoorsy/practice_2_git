@@ -95,14 +95,12 @@
 				</tr>
 			</thead>
 			<?php 
-			if(isset($_POST['btnSearch'])){
-				$btnSearchClicked = true;		
+			$retrieveQuery = "SELECT * FROM pupils" or die($conn->error);
+			if(isset($_POST['btnSearch'])){		
 				$selectedAtt = $_POST['attributes'];
 				$searchInput = $_POST['txtSearch'];
 				
-				$retrieveQuery = "SELECT * FROM pupils WHERE $selectedAtt LIKE '%$txtSearch%'" or die($conn->error);
-			}else{
-				$retrieveQuery = "SELECT * FROM pupils" or die($conn->error);
+				$retrieveQuery = "SELECT * FROM pupils WHERE $selectedAtt LIKE '%$searchInput%'" or die($conn->error);
 			}
 			
 			$result = $conn->query($retrieveQuery);
