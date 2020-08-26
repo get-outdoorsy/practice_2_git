@@ -24,7 +24,6 @@
 	?>
 	</div>
 	<?php endif ?>
-
 	<div class="container">
 	<form action="process.php" method="post">
 		<input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -74,6 +73,7 @@
 					<option value="pupil_lastName">Last name</option>
 					<option value="pupil_age">Age</option>
 					<option value="pupil_contact">Contact</option>
+					<option value="*">All</option>
 				</select>
 			</div>
 			<div class="p-2" style="width: 80%;"><input class="form-control" type="text" name="txtSearch" placeholder="Search" autocomplete="off"></div>
@@ -100,9 +100,13 @@
 				$selectedAtt = $_POST['attributes'];
 				$searchInput = $_POST['txtSearch'];
 				
-				$retrieveQuery = "SELECT * FROM pupils WHERE $selectedAtt LIKE '%$searchInput%'" or die($conn->error);
+				if($selectedAtt == "*"){
+					$retrieveQuery = "SELECT * FROM pupils" or die($conn->error);
+				}else{
+					$retrieveQuery = "SELECT * FROM pupils WHERE $selectedAtt LIKE '%$searchInput%'" or die($conn->error);
+				}
 			}
-			
+
 			$result = $conn->query($retrieveQuery);
 			while($row = $result->fetch_assoc()): ?>
 			<tr>

@@ -6,7 +6,7 @@
 	$update = false;
 	$btnSearchClicked = false;
 	$selectedAtt = "";
-	$txtSearch = "";
+	$searchInput = "";
 	$pupil_firstName = "";
 	$pupil_lastName = "";
 	$pupil_age = "";
@@ -68,15 +68,5 @@
 		$_SESSION['msg_type'] = "warning";
 
 		header('location:index.php');
-	}
-
-	if(isset($_POST['btnSearch'])){
-		$btnSearchClicked = true;
-		$selectedAtt = $_POST['attributes'];
-		$searchInput = $_POST['txtSearch'];
-		//echo $btnSearchClicked;
-		//echo $selectedAtt;
-		//echo $searchInput;
-		//header('location:index.php');
 	}
 ?>
