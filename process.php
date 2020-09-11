@@ -11,6 +11,9 @@
 	$pupil_lastName = "";
 	$pupil_age = "";
 	$pupil_contact = "";
+
+	//gawa ka naman ng bago.
+	//dugay kana waya gacode ah
 	
 	
 	if(isset($_POST['btnSave'])){
