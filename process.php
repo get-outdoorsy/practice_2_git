@@ -11,10 +11,6 @@
 	$pupil_lastName = "";
 	$pupil_age = "";
 	$pupil_contact = "";
-
-	//gawa ka naman ng bago.
-	//dugay kana waya gacode ah
-	
 	
 	if(isset($_POST['btnSave'])){
 		$pupil_firstName = $_POST['pupil_firstName'];
@@ -22,7 +18,7 @@
 		$pupil_age = $_POST['pupil_age'];
 		$pupil_contact = $_POST['pupil_contact'];
 
-		$conn->query("INSERT into pupils(pupil_firstName, pupil_lastName, pupil_age, pupil_contact) 
+		$conn->query("INSERT INTO pupils(pupil_firstName, pupil_lastName, pupil_age, pupil_contact) 
 						VALUES ('$pupil_firstName','$pupil_lastName','$pupil_age','$pupil_contact')")
 						or die($conn->error);
 
